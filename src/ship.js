@@ -34,6 +34,6 @@
     if (typeof module !== 'undefined' && module.exports) {
         module.exports = Ship;
     } else {
-        window.ship = Ship;
+        window.Ship = Ship;
     }
 }());
