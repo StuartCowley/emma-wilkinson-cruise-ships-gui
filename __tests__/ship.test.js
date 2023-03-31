@@ -1,80 +1,71 @@
-const Port = require('../src/port.js');
-const Itinerary = require('../src/itinerary.js');
 const Ship = require('../src/ship.js');
 
-
-
 describe('Ship', () => {
-    describe('with ports and an itinerary', () => {
-        let santaCruize;
-        let leedsPort;
-        let greecePort;
-        let itinerary;
+  describe('with ports and an itinerary', () => {
+    let santaCruize;
+    let leedsPort;
+    let greecePort;
+    let itinerary;
 
-        beforeEach(() => {
-            leedsPort = {
-                addShip: jest.fn(),
-                removeShip: jest.fn(),
-                name: 'Leeds',
-                ships: [],
-            };
-            greecePort = {
-                addShip: jest.fn(),
-                removeShip: jest.fn(),
-                name: 'Greece',
-                ships: [],
-            };
-            itinerary = {
-                ports: [leedsPort, greecePort],
-            }
+    beforeEach(() => {
+      leedsPort = {
+      addShip: jest.fn(),
+      removeShip: jest.fn(),
+      name: 'Leeds',
+      ships: [],
+    };
+      greecePort = {
+      addShip: jest.fn(),
+      removeShip: jest.fn(),
+      name: 'Greece',
+      ships: [],
+    };
+      itinerary = {
+      ports: [leedsPort, greecePort],
+    }
 
-            santaCruize = new Ship(itinerary);
+      santaCruize = new Ship(itinerary);
 
-        });
+    });
 
+test('creating the ship', () => {
 
+ expect(santaCruize).toBeInstanceOf(Object);
+});
 
-        test('creating the ship', () => {
+test('has a starting port', () => {
 
-            expect(santaCruize).toBeInstanceOf(Object);
-        });
+ expect(santaCruize.currentPort).toEqual(leedsPort);
+});
 
-        test('has a starting port', () => {
+test('set sail', () => {
+  
+  santaCruize.setSail();
 
-            expect(santaCruize.currentPort).toEqual(leedsPort);
-        });
+  expect(santaCruize.currentPort).toBeFalsy();
+  expect(leedsPort.removeShip).toHaveBeenCalledWith(santaCruize);
+})
 
-        test('set sail', () => {
+test('ship can dock to a different port', () => {
+  santaCruize.setSail();
+  santaCruize.dock(greecePort);
 
-            santaCruize.setSail();
+  expect(santaCruize.currentPort).toEqual(greecePort);
+  expect(greecePort.addShip).toHaveBeenCalledWith(santaCruize);
 
-            expect(santaCruize.currentPort).toBeFalsy();
-            expect(leedsPort.removeShip).toHaveBeenCalledWith(santaCruize);
-        })
+})
 
-        test('ship can dock to a different port', () => {
+test('gets added to port on instantiation', () => {
 
-            santaCruize.setSail();
+  expect(leedsPort.addShip).toHaveBeenCalledWith(santaCruize);
+});
 
-            santaCruize.dock(greecePort);
+test('cannot sail further than itinerary', () => {
 
+  santaCruize.setSail();
+  santaCruize.dock();
 
-            expect(santaCruize.currentPort).toEqual(greecePort);
-            expect(greecePort.addShip).toHaveBeenCalledWith(santaCruize);
-
-        })
-
-        test('gets added to port on instantiation', () => {
-
-            expect(leedsPort.addShip).toHaveBeenCalledWith(santaCruize);
-        });
-
-        test('cannot sail further than itinerary', () => {
-
-            santaCruize.setSail();
-            santaCruize.dock();
-
-            expect(() => santaCruize.setSail()).toThrowError('This is the end of your journey!');
+  expect(() => santaCruize.setSail()).toThrowError('This is the end of your journey!');
         });
     });
 });
