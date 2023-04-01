@@ -24,14 +24,14 @@
     <script src="./src/itinerary.js"></script>
     <script src="./src/port.js"></script>
     <script>
-        const controller = new Controller();
-        const itinerary = new Itinerary([
+            const itinerary = new Itinerary([
             new Port('Leeds'),
             new Port('London'),
             new Port('Kephalonia'),
             new Port('Patras'),
         ]);
         const ship = new Ship(itinerary);
+        const controller = new Controller(ship);
         controller.renderPorts(itinerary.ports);
         controller.renderShip();
     </script>

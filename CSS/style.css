@@ -41,6 +41,17 @@ body {
 
 }
 
+#message {
+    padding: 16px;
+    font-family: 'Russo One', sans-serif;
+    position: absolute;
+    background-color: rgb(233, 227, 227);
+    bottom: 0;
+    width: 100%;
+    border-top: 3px solid white;
+    color: red;
+}
+
 
 
 #sailbutton {
