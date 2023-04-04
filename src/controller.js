@@ -2,6 +2,7 @@
   function Controller(ship) {
     this.ship = ship
     this.initialiseSea();
+    this.generateHUD();
 
 
     document.querySelector('#sailbutton').addEventListener('click', () => {
@@ -86,6 +87,24 @@
       viewport.removeChild(messageElement);
     }, 2000);
   }
+
+  Controller.prototype.generateHUD = function() {
+    const ship = this.ship;
+    const hudElement = document.createElement('div');
+    hudElement.id = 'hud';
+    
+    const body = document.querySelector('body');
+
+    window.setInterval(() => {
+      const currentPortIndex = ship.itinerary.ports.indexOf(ship.currentPort);
+      const nextPortIndex = currentPortIndex + 1;
+
+      hudElement.innerHTML = `Current Port: ${ship.currentPort.name} <br /> Next Port: ${ship.itinerary.ports[nextPortIndex].name}`;
+      const body = document.querySelector('body');
+      body.appendChild(hudElement);
+    }, 1000);
+
+  } 
 
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = Controller;

@@ -9,8 +9,12 @@
     <link rel="stylesheet" href="./CSS/normalize.css" />
     <link rel="stylesheet" href="./CSS/style.css" type="text/css" />
 </head>
-
 <body>
+    <form id="portform">
+        <label for="addport">Add Port</label>
+        <input id="addport" type="text">
+        <button id="addbutton">Add</button>
+    </form>
     <div id="viewport">
         <div id="ports">
         </div>
@@ -25,10 +29,7 @@
     <script src="./src/port.js"></script>
     <script>
             const itinerary = new Itinerary([
-            new Port('Leeds'),
-            new Port('London'),
-            new Port('Kephalonia'),
-            new Port('Patras'),
+
         ]);
         const ship = new Ship(itinerary);
         const controller = new Controller(ship);
