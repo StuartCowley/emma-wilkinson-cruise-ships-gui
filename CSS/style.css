@@ -57,20 +57,27 @@ body {
     background-color: white;
     font-family: 'Russo One', sans-serif;
     border: solid white 1px;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     padding: 30px;
     padding-top: 50px;
     padding-bottom: 50px;
+    border: red solid;
+    flex-direction: column;
+}
+
+#defaulttext {
+    opacity: 0.5;
 }
 
 #addbutton {
-    display: block;
+    display: flex;
     background-color: red;
     color: white;
     position: absolute;
-    bottom: 0;
+    bottom: 10px;
+    left: 100px;
 }
 
 #message {
