@@ -67,10 +67,6 @@ body {
     flex-direction: column;
 }
 
-#defaulttext {
-    opacity: 0.5;
-}
-
 #addbutton {
     display: flex;
     background-color: red;

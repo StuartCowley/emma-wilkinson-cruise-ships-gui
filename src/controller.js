@@ -99,7 +99,8 @@
       const currentPortIndex = ship.itinerary.ports.indexOf(ship.currentPort);
       const nextPortIndex = currentPortIndex + 1;
 
-      hudElement.innerHTML = `Current Port: ${ship.currentPort.name} <br /> Next Port: ${ship.itinerary.ports[nextPortIndex].name}`;
+      hudElement.innerHTML = `Current Port: ${ship.currentPort.name} <br /> 
+      Next Port: ${ship.itinerary.ports[nextPortIndex].name}`;
       const body = document.querySelector('body');
       body.appendChild(hudElement);
     }, 1000);

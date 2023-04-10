@@ -11,13 +11,13 @@
 </head>
 
 <body>
-    <form id="portform">
+    <form id="portform" onSubmit="submitForm">
         <label for="addport">Add Port</label>
         <input id="addport" type="text">
         <button id="addbutton">Add</button>
     </form>
     <script>
-        const defaultTextValue = "add port...";
+        const defaultTextValue = "port name...";
         let portBox = document.getElementById("addport");
         portBox.value = defaultTextValue;
 
@@ -27,11 +27,22 @@
             }
         }
 
-                portBox.onblur = function () {
-                    if (this.value == "") {
-                        this.value = defaultTextValue;
-                    }
-                }
+        portBox.onblur = function () {
+            if (this.value == "") {
+                this.value = defaultTextValue;
+            }
+        }
+    </script>
+    <script>
+        function submitForm(event) {
+            event.preventDefault();
+            const portName = document.getElementById("addport").value;
+            const port = new Port(portName);
+            controller.ship.itinerary.push(port);
+            controller.renderPorts(itinerary.ports);
+
+            console.log(portName);
+        }
     </script>
 
     <div id="viewport">
@@ -47,13 +58,14 @@
     <script src="./src/itinerary.js"></script>
     <script src="./src/port.js"></script>
     <script>
-                        const itinerary = new Itinerary([
-
-                        ]);
-                        const ship = new Ship(itinerary);
-                        const controller = new Controller(ship);
-                        controller.renderPorts(itinerary.ports);
-                        controller.renderShip();
+        const itinerary = new Itinerary([
+            new Port('londonPort'),
+            new Port('leedsPort')
+        ]);
+        const ship = new Ship(itinerary);
+        const controller = new Controller(ship);
+        controller.renderPorts(itinerary.ports);
+        controller.renderShip();
     </script>
 </body>
 
