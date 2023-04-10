@@ -26,6 +26,7 @@
 
   Controller.prototype.renderPorts = function renderPorts(ports) {
     const portsElement = document.querySelector('#ports');
+    portsElement.innerHTML = '';
     portsElement.style.width = '0px';
 
     ports.forEach((port, index) => {
@@ -55,6 +56,7 @@
     const currentPortIndex = ship.itinerary.ports.indexOf(ship.currentPort);
     const nextPortIndex = currentPortIndex + 1;
     const nextPortElement = document.querySelector(`[data-port-index='${nextPortIndex}']`);
+    
 
     if (!nextPortElement) {
       return this.renderMessage('End of the line!');

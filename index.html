@@ -11,11 +11,12 @@
 </head>
 
 <body>
-    <form id="portform" onSubmit="submitForm">
+    <form id="portform" onsubmit="return false">
         <label for="addport">Add Port</label>
         <input id="addport" type="text">
         <button id="addbutton">Add</button>
     </form>
+
     <script>
         const defaultTextValue = "port name...";
         let portBox = document.getElementById("addport");
@@ -34,15 +35,16 @@
         }
     </script>
     <script>
-        function submitForm(event) {
-            event.preventDefault();
+        const submitButton = document.querySelector('#addbutton');
+        submitButton.addEventListener("click", function () {
             const portName = document.getElementById("addport").value;
             const port = new Port(portName);
-            controller.ship.itinerary.push(port);
+            if (!controller.ship.currentPort) {
+                controller.ship.currentPort = port;
+            }
+            itinerary.ports.push(port);
             controller.renderPorts(itinerary.ports);
-
-            console.log(portName);
-        }
+        });
     </script>
 
     <div id="viewport">
@@ -59,11 +61,11 @@
     <script src="./src/port.js"></script>
     <script>
         const itinerary = new Itinerary([
-            new Port('londonPort'),
-            new Port('leedsPort')
+            
         ]);
         const ship = new Ship(itinerary);
         const controller = new Controller(ship);
+        console.log(ship.currentPort);
         controller.renderPorts(itinerary.ports);
         controller.renderShip();
     </script>
