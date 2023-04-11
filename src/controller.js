@@ -65,7 +65,7 @@
     this.renderMessage(`Now departing ${ship.currentPort.name}`);
     const shipElement = document.querySelector('#ship');
     const sailInterval = setInterval(() => {
-      const shipLeft = parseInt(shipElement.style.left, 10);
+      const shipLeft = parseInt(shipElement.offsetLeft, 10);
       if (shipLeft === (nextPortElement.offsetLeft - 32)) {
         ship.setSail();
         ship.dock();
