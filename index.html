@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cruise Ships</title>
+    <link rel="stylesheet" href="./CSS/normalize.css" />
+    <link rel="stylesheet" href="./CSS/style.css" type="text/css" />
+</head>
+
+<body>
+    <form id="portform" onsubmit="return false">
+        <label for="addport">Add Port</label>
+        <input id="addport" type="text">
+        <button id="addbutton">Add</button>
+    </form>
+
+    <script>
+        const defaultTextValue = "port name...";
+        let portBox = document.getElementById("addport");
+        portBox.value = defaultTextValue;
+
+        portBox.onfocus = function () {
+            if (this.value == defaultTextValue) {
+                this.value = '';
+            }
+        }
+
+        portBox.onblur = function () {
+            if (this.value == "") {
+                this.value = defaultTextValue;
+            }
+        }
+    </script>
+    <script>
+        const submitButton = document.querySelector('#addbutton');
+        submitButton.addEventListener("click", function () {
+            const portName = document.getElementById("addport").value;
+            const port = new Port(portName);
+            if (!controller.ship.currentPort) {
+                controller.ship.currentPort = port;
+            }
+            itinerary.ports.push(port);
+            controller.renderPorts(itinerary.ports);
+        });
+    </script>
+
+    <div id="viewport">
+        <div id="ports">
+        </div>
+        <div id="ship"></div>
+        <div>
+            <button id="sailbutton">Set sail!</button>
+        </div>
+    </div>
+    <script src="./src/controller.js"></script>
+    <script src="./src/ship.js"></script>
+    <script src="./src/itinerary.js"></script>
+    <script src="./src/port.js"></script>
+    <script>
+        const itinerary = new Itinerary([
+            
+        ]);
+        const ship = new Ship(itinerary);
+        const controller = new Controller(ship);
+        console.log(ship.currentPort);
+        controller.renderPorts(itinerary.ports);
+        controller.renderShip();
+    </script>
+</body>
+
+</html>
